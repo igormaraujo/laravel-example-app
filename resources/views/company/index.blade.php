@@ -9,6 +9,11 @@
         <div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
+                    @if (session('success'))
+                        <div class="bg-green-300 border border-green-500 p-2 my-2 text-green-800 rounded">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <a href="{{ route('company.create') }}">
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Add Company
@@ -52,8 +57,20 @@
                                                     <td class="px-6 py-4 whitespace-nowrap">
                                                         <div class="flex items-center">
                                                             <div class="flex-shrink-0 h-10 w-10">
-                                                                <img class="h-10 w-10 rounded-full"
-                                                                    src="{{ asset('storage/' . $company->logo) }}" alt="">
+                                                                @if ($company->logo)
+                                                                    <img class="h-10 w-10 rounded-full"
+                                                                        src="{{ asset('storage/' . $company->logo) }}"
+                                                                        alt="">
+                                                                @else
+                                                                <span class="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                                                                    <svg id="current-image"
+                                                                        class="h-full w-full text-gray-300"
+                                                                        fill="currentColor" viewBox="0 0 24 24">
+                                                                        <path
+                                                                            d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                                    </svg>
+                                                                </span>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </td>
@@ -64,11 +81,11 @@
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-nowrap">
                                                         <div class="text-sm text-gray-900">
-                                                            {{ substr($company->website, 0, strrpos($company->website, '/', 2)) }}
+                                                            {{ $company->website ? substr($company->website, 0, strrpos($company->website, '/', 2)) : '--' }}
                                                         </div>
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        {{ $company->email }}
+                                                        {{ $company->email ?? '--' }}
                                                     </td>
                                                     <td
                                                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

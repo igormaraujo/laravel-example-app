@@ -17,6 +17,13 @@ class StoreCompanyRequest extends FormRequest
         return Auth::check();
     }
 
+    protected function prepareForValidation()
+    {
+        if ($this->filled('website')) {
+            $this->merge(['website' => 'https://' . $this->get('website')]);
+        }
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,7 +33,25 @@ class StoreCompanyRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'email' => 'nullable|unique:companies|email',
+            'website' => 'nullable|url',
+            'logo' => 'nullable|image|dimensions:min_width=100,min_height=100',
         ];
+    }
+
+    public function passedValidation()
+    {
+        if($this.filled('logo')) {
+            $this->merge(['logo' => $this->file('logo')->store('','public')]);
+        }
+    }
+
+    public function validated(): array
+    {
+        if ($this->filled('logo')) {
+            return array_merge(parent::validated(), ['logo' => $this->input('logo')]);
+        }
+        return parent::validated();
     }
 
     /**
