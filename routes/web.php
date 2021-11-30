@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [CompanyController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+Route::middleware(['auth'])->prefix('company')->group(function () {
+    Route::get('/create', [CompanyController::class, 'create'])->name('company.create');
+    Route::post('/create', [CompanyController::class, 'store'])->name('company.store');
+});
 
 require __DIR__.'/auth.php';
