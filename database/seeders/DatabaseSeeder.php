@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Company;
+use App\Models\Employee;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Company::factory(25)->create();
+        Company::factory(25)
+            ->has(Employee::factory(rand(1,30)))
+            ->create();
         $this->call([
             UserSeeder::class,
         ]);
