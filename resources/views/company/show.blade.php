@@ -21,7 +21,7 @@
               {{ session('success') }}
             </div>
           @endif
-          <a href="{{ route('employee.create') }}">
+          <a href="{{ route('company.employee.create', $company->id) }}">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Add Employee
             </button>

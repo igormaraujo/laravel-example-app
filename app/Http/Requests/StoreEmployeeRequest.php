@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreEmployeeRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreEmployeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,22 @@ class StoreEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+          'first_name' => 'required',
+          'last_name' => 'required',
+          'email' => 'nullable|unique:employees|email',
+          'phone' => 'nullable|regex:/^\+[1-9]\d{7,14}$/', // international phone number E.164 format
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'phone.regex' => 'Phone number must be in international format. e.g. +12125551212',
         ];
     }
 }

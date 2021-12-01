@@ -20,7 +20,8 @@ Route::get('/', [CompanyController::class, 'index'])->middleware(['auth'])->name
 Route::resource('company', CompanyController::class)
   ->except(['index'])
   ->middleware(['auth']);
-Route::resource('employee', EmployeeController::class)
+Route::resource('company.employee', EmployeeController::class)
+  ->shallow()
   ->except(['index', 'show'])
   ->middleware(['auth']);
 
