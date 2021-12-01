@@ -49,7 +49,8 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+      $employees = $company->employees()->paginate(10);
+      return view('company.show', ['company' => $company, 'employees' => $employees]);
     }
 
     /**
