@@ -8,7 +8,8 @@
     <div>
         <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div class="mt-5 md:mt-0">
-                <form action="{{ route('company.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ $company->id ? route('company.update', $company->id) : route('company.store') }}" method="POST" enctype="multipart/form-data">
+                    @method($company->id ? 'PUT' : 'POST')
                     @csrf
                     <div class="shadow sm:rounded-md sm:overflow-hidden">
                         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -21,7 +22,7 @@
                                         <input type="text" name="name" id="name"
                                             class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 @error('name') border-red-500 @enderror"
                                             placeholder="Company Name"
-                                            value="{{old('name')}}">
+                                            value="{{old('name') ?? $company->name}}">
                                     </div>
                                     @error('name')
                                         <div class="text-red-500 text-sm">{{ $message }}</div>
@@ -37,7 +38,7 @@
                                         <input type="text" name="email" id="email"
                                             class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 @error('email') border-red-500 @enderror"
                                             placeholder="Company Email"
-                                            value="{{old('email')}}">
+                                            value="{{old('email') ?? $company->email}}">
                                     </div>
                                     @error('email')
                                         <div class="text-red-500 text-sm">{{ $message }}</div>
@@ -57,7 +58,7 @@
                                         <input type="text" name="website" id="website"
                                             class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 @error('website') border-red-500 @enderror"
                                             placeholder="www.example.com"
-                                            value="{{old('website')}}">
+                                            value="{{old('website') ?? $company->website ? str_replace($company->website, 'https://', '') : null}}">
                                     </div>
                                     @error('website')
                                         <div class="text-red-500 text-sm">{{ $message }}</div>
@@ -70,8 +71,8 @@
                                 </label>
                                 <div class="mt-1 flex items-center">
                                     <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                                        <img id="image-preview" src="#" alt="your image" style="display: none" />
-                                        <svg id="current-image" class="h-full w-full text-gray-300" fill="currentColor"
+                                        <img id="image-preview" src="{{$company->logo ? asset('storage/' . $company->logo) : '#'}}" style="display: {{$company->logo ? 'block' : 'none'}}" />
+                                        <svg id="current-image" class="h-full w-full text-gray-300" fill="currentColor" style="display: {{$company->logo ? 'none' : 'block'}}"
                                             viewBox="0 0 24 24">
                                             <path
                                                 d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />

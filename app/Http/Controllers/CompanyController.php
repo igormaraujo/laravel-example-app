@@ -25,7 +25,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('company.create');
+        return view('company.create', ['company' => new Company()]);
     }
 
     /**
@@ -54,24 +54,25 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Company\  $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company)
     {
-        //
+        return view('company.create', ['company' => $company]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCompanyRequest  $request
+     * @param  \App\Http\Requests\StoreCompanyRequest  $request
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(StoreCompanyRequest $request, Company $company)
     {
-        //
+        $company->update($request->validated());
+        return redirect('dashboard')->with('success', 'Company updated successfully');
     }
 
     /**

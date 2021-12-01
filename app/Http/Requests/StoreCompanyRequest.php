@@ -41,7 +41,8 @@ class StoreCompanyRequest extends FormRequest
 
     public function passedValidation()
     {
-        if($this.filled('logo')) {
+        
+        if($this->file('logo')) {
             $this->merge(['logo' => $this->file('logo')->store('','public')]);
         }
     }
