@@ -44,7 +44,7 @@ class EmployeeController extends Controller
    */
   public function edit(Employee $employee)
   {
-    //
+    return view('employee.create', ['employee' => $employee, 'company' => $employee->company]);
   }
 
   /**
@@ -54,9 +54,10 @@ class EmployeeController extends Controller
    * @param  \App\Models\Employee  $employee
    * @return \Illuminate\Http\Response
    */
-  public function update(UpdateEmployeeRequest $request, Employee $employee)
+  public function update(StoreEmployeeRequest $request, Employee $employee)
   {
-    //
+    $employee->update($request->validated());
+    return redirect()->route('company.show',['company' => $employee->company_id])->with('success', 'Employee updated successfully');
   }
 
   /**
@@ -67,6 +68,7 @@ class EmployeeController extends Controller
    */
   public function destroy(Employee $employee)
   {
-    //
+    $employee->delete();
+    return redirect()->route('company.show',['company' => $employee->company_id])->with('success', 'Employee deleted successfully');
   }
 }
