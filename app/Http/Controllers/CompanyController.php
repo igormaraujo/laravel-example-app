@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Company;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -71,7 +72,11 @@ class CompanyController extends Controller
      */
     public function update(StoreCompanyRequest $request, Company $company)
     {
+        $oldImage = $company->logo;
         $company->update($request->validated());
+        if( $oldImage && Storage::exists('public/'.$oldImage) ) {
+            Storage::delete('public/'.$oldImage);
+        }
         return redirect('dashboard')->with('success', 'Company updated successfully');
     }
 
