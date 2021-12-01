@@ -88,6 +88,11 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $oldImage = $company->logo;
+        $company->delete();
+        if( $oldImage && Storage::exists('public/'.$oldImage) ) {
+            Storage::delete('public/'.$oldImage);
+        }
+        return redirect('dashboard')->with('success', 'Company deleted successfully');
     }
 }

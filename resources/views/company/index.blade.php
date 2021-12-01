@@ -90,8 +90,17 @@
                                                     </td>
                                                     <td
                                                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <a href="{{ route('company.show', $company->id) }}"
+                                                            class="text-indigo-600 hover:text-indigo-900">View</a>
                                                         <a href="{{ route('company.edit', $company->id) }}"
-                                                            class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                            class="text-yellow-600 hover:text-yellow-900 mx-2">Edit</a>
+                                                        <form action="{{ route('company.destroy', $company->id) }}"
+                                                            method="POST" class="inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="text-red-600 hover:text-red-900">Delete</button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @endforeach
