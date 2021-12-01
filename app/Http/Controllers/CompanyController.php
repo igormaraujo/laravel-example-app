@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompanyRequest;
-use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,7 +37,7 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         Company::create($request->validated());
-        return redirect('dashboard')->with('success', 'Company created successfully');
+        return redirect('home')->with('success', 'Company created successfully');
     }
 
     /**
@@ -78,7 +77,7 @@ class CompanyController extends Controller
         if( $oldImage && Storage::exists('public/'.$oldImage) ) {
             Storage::delete('public/'.$oldImage);
         }
-        return redirect('dashboard')->with('success', 'Company updated successfully');
+        return redirect('home')->with('success', 'Company updated successfully');
     }
 
     /**
@@ -94,6 +93,6 @@ class CompanyController extends Controller
         if( $oldImage && Storage::exists('public/'.$oldImage) ) {
             Storage::delete('public/'.$oldImage);
         }
-        return redirect('dashboard')->with('success', 'Company deleted successfully');
+        return redirect('home')->with('success', 'Company deleted successfully');
     }
 }

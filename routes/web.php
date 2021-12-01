@@ -15,13 +15,13 @@ use App\Http\Controllers\EmployeeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [CompanyController::class, 'index'])->middleware(['auth'])->name('home');
 
-Route::get('/dashboard', [CompanyController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::resource('company', CompanyController::class)
+  ->except(['index'])
+  ->middleware(['auth']);
+Route::resource('employee', EmployeeController::class)
+  ->except(['index', 'show'])
+  ->middleware(['auth']);
 
-Route::resource('company', CompanyController::class)->middleware(['auth']);
-Route::resource('employee', EmployeeController::class)->middleware(['auth']);
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
