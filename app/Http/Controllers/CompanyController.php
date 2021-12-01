@@ -37,7 +37,7 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         Company::create($request->validated());
-        return redirect('home')->with('success', 'Company created successfully');
+        return redirect('/')->with('success', 'Company created successfully');
     }
 
     /**
@@ -77,7 +77,7 @@ class CompanyController extends Controller
         if( $oldImage && Storage::exists('public/'.$oldImage) ) {
             Storage::delete('public/'.$oldImage);
         }
-        return redirect('home')->with('success', 'Company updated successfully');
+        return redirect('/')->with('success', 'Company updated successfully');
     }
 
     /**
@@ -93,6 +93,6 @@ class CompanyController extends Controller
         if( $oldImage && Storage::exists('public/'.$oldImage) ) {
             Storage::delete('public/'.$oldImage);
         }
-        return redirect('home')->with('success', 'Company deleted successfully');
+        return redirect('/')->with('success', 'Company deleted successfully');
     }
 }

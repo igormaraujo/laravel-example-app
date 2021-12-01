@@ -19,8 +19,8 @@ class StoreCompanyRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if ($this->filled('website')) {
-            $this->merge(['website' => 'https://' . $this->get('website')]);
+        if ($this->filled('website') && !str_starts_with($this->input('website'), 'http') && str_contains($this->input('website'), '.')) {
+            $this->merge(['website' => 'https://' . $this->input('website')]);
         }
     }
 
@@ -41,7 +41,7 @@ class StoreCompanyRequest extends FormRequest
 
     public function passedValidation()
     {
-        
+
         if($this->file('logo')) {
             $this->merge(['logo' => $this->file('logo')->store('','public')]);
         }
@@ -63,7 +63,8 @@ class StoreCompanyRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'A name is required'
+            'name.required' => 'A name is required',
+            'logo.dimensions' => 'The logo must be at least 100x100 pixels',
         ];
     }
 }
