@@ -82,7 +82,7 @@
                 </label>
                 <div class="mt-1 flex items-center">
                   <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                    <img id="image-preview" src="{{ $company->logo ? asset('storage/' . $company->logo) : '#' }}"
+                    <img id="image-preview" src="{{ $company->logo ? Storage::url($company->logo) : '#' }}"
                       style="display: {{ $company->logo ? 'block' : 'none' }}" />
                     <svg id="current-image" class="h-full w-full text-gray-300" fill="currentColor"
                       style="display: {{ $company->logo ? 'none' : 'block' }}" viewBox="0 0 24 24">
