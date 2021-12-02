@@ -53,7 +53,7 @@ class CreateTest extends TestCase
     $this->assertDatabaseHas('companies', [
       'email' => $company->email
     ]);
-    Storage::assertExists('public/' . $company->logo->hashName());
+    Storage::assertExists($company->logo->hashName());
   }
 
   public function test_create_a_new_company_only_required_data()

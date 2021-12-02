@@ -59,7 +59,7 @@
                                                             <div class="flex-shrink-0 h-10 w-10">
                                                                 @if ($company->logo)
                                                                     <img class="h-10 w-10 rounded-full"
-                                                                        src="{{ asset('storage/' . $company->logo) }}"
+                                                                        src="{{ Storage::url($company->logo) }}"
                                                                         alt="">
                                                                 @else
                                                                     <span

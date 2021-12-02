@@ -74,8 +74,8 @@ class CompanyController extends Controller
     {
         $oldImage = $company->logo;
         $company->update($request->validated());
-        if( $oldImage && Storage::exists('public/'.$oldImage) ) {
-            Storage::delete('public/'.$oldImage);
+        if( $oldImage && Storage::exists($oldImage) ) {
+            Storage::delete($oldImage);
         }
         return redirect('/')->with('success', 'Company updated successfully');
     }
@@ -90,8 +90,8 @@ class CompanyController extends Controller
     {
         $oldImage = $company->logo;
         $company->delete();
-        if( $oldImage && Storage::exists('public/'.$oldImage) ) {
-            Storage::delete('public/'.$oldImage);
+        if( $oldImage && Storage::exists($oldImage) ) {
+            Storage::delete($oldImage);
         }
         return redirect('/')->with('success', 'Company deleted successfully');
     }

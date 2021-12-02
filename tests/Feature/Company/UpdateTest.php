@@ -45,7 +45,7 @@ class UpdateTest extends TestCase
     $company = Company::factory()->make([
       'logo' => UploadedFile::fake()->image('logo.jpg', 100, 100)
     ]);
-    Storage::assertExists('public/' . $this->company->logo);
+    Storage::assertExists($this->company->logo);
     $this
       ->actingAs($this->user)
       ->put($this->url, $company->toArray())
@@ -55,8 +55,8 @@ class UpdateTest extends TestCase
       ->assertDatabaseHas('companies', [
         'email' => $company->email
       ]);
-    Storage::assertExists('public/' . $company->logo->hashName());
-    Storage::assertMissing('public/' . $this->company->logo);
+    Storage::assertExists($company->logo->hashName());
+    Storage::assertMissing($this->company->logo);
   }
 
   public function test_create_a_new_company_only_required_data()

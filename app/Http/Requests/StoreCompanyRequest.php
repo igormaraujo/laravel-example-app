@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,7 +44,7 @@ class StoreCompanyRequest extends FormRequest
     {
 
         if($this->file('logo')) {
-            $this->merge(['logo' => $this->file('logo')->store('','public')]);
+            $this->merge(['logo' => Storage::putFile('', $this->file('logo'), 'public')]);
         }
     }
 
