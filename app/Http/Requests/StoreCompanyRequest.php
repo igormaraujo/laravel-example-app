@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreCompanyRequest extends FormRequest
 {
@@ -34,7 +35,7 @@ class StoreCompanyRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'nullable|unique:companies|email',
+            'email' => ['nullable','email', Rule::unique('companies')->ignore($this->company)],
             'website' => 'nullable|url',
             'logo' => 'nullable|image|dimensions:min_width=100,min_height=100',
         ];
