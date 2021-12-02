@@ -74,7 +74,7 @@ class CompanyController extends Controller
     {
         $oldImage = $company->logo;
         $company->update($request->validated());
-        if( $oldImage && Storage::exists($oldImage) ) {
+        if( $oldImage && Storage::exists($oldImage && $request->file('logo')) ) {
             Storage::delete($oldImage);
         }
         return redirect('/')->with('success', 'Company updated successfully');
