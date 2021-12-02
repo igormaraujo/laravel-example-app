@@ -2,7 +2,9 @@
 
 This is a project to test laravel skills
 
-Project idea soruce: https://laraveldaily.com/test-junior-laravel-developer-sample-project/
+Project idea source: https://laraveldaily.com/test-junior-laravel-developer-sample-project/
+
+Live demo: http://laravel-example-app-project.herokuapp.com/
 
 ## Project
 Basically, project to manage companies and their employees. Mini-CRM.
