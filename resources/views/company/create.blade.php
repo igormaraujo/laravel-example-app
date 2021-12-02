@@ -69,7 +69,7 @@
                     <input type="text" name="website" id="website"
                       class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 @error('website') border-red-500 @enderror"
                       placeholder="www.example.com"
-                      value="{{ old('website') ?? $company->website ? str_replace($company->website, 'https://', '') : null }}">
+                      value="{{ old('website') ?? $company->website ? preg_replace('/http[s]?:\/\//i', '', $company->website) : null }}">
                   </div>
                   @error('website')
                     <div class="text-red-500 text-sm">{{ $message }}</div>
