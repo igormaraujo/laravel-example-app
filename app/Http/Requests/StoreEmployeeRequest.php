@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreEmployeeRequest extends FormRequest
 {
@@ -27,7 +28,7 @@ class StoreEmployeeRequest extends FormRequest
         return [
           'first_name' => 'required',
           'last_name' => 'required',
-          'email' => 'nullable|unique:employees|email',
+          'email' => ['nullable','email', Rule::unique('employees')->ignore($this->employee)],
           'phone' => 'nullable|regex:/^\+[1-9]\d{7,14}$/', // international phone number E.164 format
         ];
     }
